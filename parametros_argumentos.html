@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parametros VS Argumentos</title>
+</head>
+<body>
+  <script>
+    function usuario(email, senha, pais, estado, cep) {
+      console.log(email, senha, pais, estado, cep);
+    }
+
+    const demaisDados = ['brazil', 'rj', 'casado'];
+
+    usuario('programadorabordo@gmail.com', '123123', ...demaisDados);
+
+    // usuario('jsraiz@gmail.com', '321321');
+  </script>
+</body>
+</html>

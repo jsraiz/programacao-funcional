@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map, filter e reduce</title>
+</head>
+<body>
+  <script>
+
+    function multiplicador(multi) {
+      return function(numero, index) {
+        return (numero * multi) + index
+      };
+    }
+
+    const valoresMultiplicados = [10, 20, 30, 40].map(multiplicador(3));
+
+    console.log(valoresMultiplicados);
+
+    const impares = [1, 2, 3, 4].filter(function(valor) {
+      return ((valor % 2) !== 0)
+    });
+
+    console.log(impares);
+
+    const produtos = [
+      {
+        id: '001',
+        nome: 'trabalhe 4 horas',
+        categoria: 'livro',
+        preco: 950
+      },
+      {
+        id: '002',
+        nome: 'Macbook',
+        categoria: 'eletronicos',
+        preco: 2500
+      },
+      {
+        id: '003',
+        nome: 'Segredos do JS ninja',
+        categoria: 'livro',
+        preco: 1090
+      },
+      {
+        id: '004',
+        nome: 'Bola de futebol',
+        categoria: 'esportes',
+        preco: 1500
+      }
+    ];
+
+    function porCategoria(categoria) {
+      return function(produto) {
+        return produto.categoria === categoria
+      }
+    }
+
+    const livros = produtos.filter(porCategoria('livro'))
+    const eletronicos = produtos.filter(porCategoria('eletronicos'))
+
+    console.log(livros, eletronicos);
+
+    function multiReduce(multiplicador) {
+      return function(acc, valorCorrente) {
+        return [...acc, (valorCorrente * multiplicador)];
+      } 
+    }
+
+    const valoresMultiplicadosPorReduce = [10, 20, 30, 40].reduce(
+      multiReduce(4),
+      []
+    );
+
+    console.log(valoresMultiplicadosPorReduce);
+
+
+    const imparesReduce = [1, 2, 3, 4, 5, 6, 7].reduce(function(acc, valorCorrente) {
+      return (valorCorrente % 2) !== 0
+        ? [...acc, valorCorrente]
+        : acc;
+    }, [])
+
+    console.log(imparesReduce);
+
+
+    const produtosAgrupadosPorCategoria = produtos.reduce(function(acc, produto) {
+      return (!acc[produto.categoria])
+        ? { ...acc, [produto.categoria]: [produto] }
+        : { ...acc, [produto.categoria]: [ ...acc[produto.categoria], produto ] }
+    }, {});
+
+    console.log(produtosAgrupadosPorCategoria)
+
+
+    const produtosAgrupadosPorCategoriaUmaLinha = produtos.reduce((acc, produto) =>
+      ({ ...acc, [ produto.categoria ]: [ ...(acc[produto.categoria] || []), produto ] })
+    , {});
+
+
+
+    // Exercício 1, criar função agruparPor('categoria')
+
+    //console.log(produtos.reduce(agrupaPor('categoria'), {}))
+
+    // Exercício 2
+
+    /* 
+      {
+        '0_1000': [
+          {
+            id: '001',
+            nome: 'trabalhe 4 horas',
+            categoria: 'livro',
+            preco: 950
+          }
+        ],
+        '1000_2000': [
+
+        ],
+        '2000_3000': [
+          
+        ]
+      }
+    */
+
+
+
+    console.log('produtosAgrupadosPorCategoriaUmaLinha', produtosAgrupadosPorCategoriaUmaLinha)
+
+    console.log(produtos.reduce(function(acc, produto) {
+      acc[produto.id] = produto;
+
+      return acc;
+    }, {}));
+
+
+
+    const somaTotal = [10, 20, 30, 55].reduce(function(acc, valorCorrente) {
+      return acc + valorCorrente;
+    }, 0);
+
+    console.log(somaTotal);
+
+
+    const tudoMaiusculo = ['ayrton', 'Teshima']
+      .reduce(function(acc, valorCorrente) {
+        return acc + valorCorrente.toUpperCase() + ' - ';
+      }, '')
+
+    // AYRTON - TESHIMA -
+
+    console.log(tudoMaiusculo);
+
+  </script>
+  
+</body>
+</html>

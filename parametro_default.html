@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parametro default</title>
+</head>
+<body>
+  <script>
+
+    function obrigatorio(campo) {
+      throw new Error(`CAMPO ${campo} OBRIGATÓRIO`)
+    }
+
+    function validate(nome, pais = obrigatorio('pais'), email = obrigatorio('e-mail')) {
+      console.log(nome, pais, email)
+    }
+
+    try {
+      validate('Ayrton', 'Brasil');
+    } catch(e) {
+      console.log(e.message);
+    }
+    
+  </script>
+</body>
+</html>

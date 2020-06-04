@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Closures</title>
+</head>
+<body>
+  <script>
+    function nomeFamilia(sobrenome) {
+    
+      const pais = 'Brasil';
+
+      function soma(a, b) {
+        return a + b;
+      }
+
+      return function(primeiroNome) {
+        return `${primeiroNome} ${sobrenome} - ${pais} - ${soma(30, 10)}`;
+      }
+    }
+
+    const defNome = nomeFamilia('Teshima');
+
+    console.log(defNome('Ayrton'))
+
+    console.log(defNome('João'))
+    console.log(defNome('Maria'))
+    console.log(defNome('Joaquim'))
+
+    setTimeout(function() {
+      const tereza = defNome('Tereza');
+      console.log(tereza);
+    }, 1000);
+
+    const defSilva = nomeFamilia('Silva');
+
+    console.log(defSilva('André'));
+    console.log(defSilva('Mateus'));
+  </script>
+</body>
+</html>

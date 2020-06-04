@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ferramentas</title>
+</head>
+<body>
+  <script type="module">
+    import * as _ from './tools/lib.js'
+
+
+    console.log([14.3, '9.2', 100.4].map(_.unary(parseInt)))
+
+    // identity
+    /* function soma(a, b, fn = _.identity) {
+      return fn(a + b);
+    } */
+
+    // console.log(soma(20, 5));
+
+    function soma(v1, v2) {
+      return v1 + v2;
+    }
+
+    function geraResultado(fn) {
+      return fn( [10, 20] )
+    }
+
+    console.log(geraResultado(_.apply(soma)));
+
+    // partial application
+    function soma5(a, b, c, d, e) {
+      return a + b + c + d + e;
+    }
+
+    const somaFaltam2 = _.partial(soma5, 15, 20, 30);
+
+    const somaFaltam1 = _.partial(somaFaltam2, 40)
+
+    setTimeout(function() {
+      console.log(somaFaltam2(40, 40))
+      console.log(somaFaltam1(10));
+    }, 500);
+
+
+    const add100 = _.partial(soma, 100);
+
+    const valoresMais10 = [10, 20, 30].map(add100)
+
+    console.log(valoresMais10);
+
+
+    const reqProdutos = _.partial(fetch, 'http://localhost:3000/produtos');
+
+    const salvaMacBook = _.partial(reqProdutos, {
+      method: 'POST', 
+      body: JSON.stringify({ 
+        name: 'macBook',
+        price: 15500
+      })
+    });
+
+    const salvaIphone = _.partial(reqProdutos, {
+      method: 'POST', 
+      body: JSON.stringify({ 
+        name: 'IPhone',
+        price: 5500
+      })
+    });
+
+    function toJson(data) {
+      return data.json();
+    }
+
+    reqProdutos()
+      .then(toJson)
+      .then(function(resposta) {
+        console.log(resposta);
+      });
+
+    
+    salvaMacBook()
+      .then(toJson)
+      .then(console.log)
+
+    salvaIphone()
+      .then(toJson)
+      .then(console.log)
+  </script>
+</body>
+</html>

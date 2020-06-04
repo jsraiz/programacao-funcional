@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOF</title>
+</head>
+<body>
+  <script>
+    function soma(a, b, fn) {
+      return fn(a + b);
+    }
+
+    function multiplicador(multi) {
+      return function(numero) {
+        return numero * multi
+      };
+    }
+
+    console.log(soma(20, 20, multiplicador(5)));
+
+  </script>
+</body>
+</html>
