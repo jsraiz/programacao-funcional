@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curry - JS Raiz</title>
+</head>
+<body>
+  <script type="module">
+    import * as _ from './tools/lib.js';
+
+    function add(a, b) {
+      return a + b;
+    }
+
+    const addCurried = _.curry(add);
+
+    
+    const numeros = [1, 5, 2, 10];
+
+    console.log(numeros.map(addCurried(3)))
+
+  </script>
+</body>
+</html>

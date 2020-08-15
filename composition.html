@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Composition - JS Raiz</title>
+</head>
+<body>
+  <script type="module">
+    import * as _ from './tools/lib.js';
+
+    /* 
+      incrementar um número
+      dobrar
+    */
+
+    function compose (fn1, fn2) {
+      return function(v) {
+        return fn1(fn2(v))
+      }
+    }
+
+    const inc = _.add(1);
+    const double = _.multiply(2);
+
+    /* function incrementaEDobra (numero) { 
+      return double(inc(numero))
+    } */
+
+    const incrementaEDobra = compose(double, inc);
+
+    console.log(
+      incrementaEDobra(30)
+    );
+
+    
+
+    const textoMaior = compose(_.toUpper, _.trim);
+
+    console.log(
+      textoMaior('     oiii   ')
+    )
+
+  </script>
+</body>
+</html>

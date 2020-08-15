@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pointfree - JS Raiz</title>
+</head>
+<body>
+  <script type="module">
+    import * as _ from './tools/lib.js';
+
+   /*  function soma(a, b) {
+
+    }
+
+    const soma = function(a, b) {
+
+    }
+
+    const soma2 = (a, b) => {} */
+
+    //console.log(_.add(10)(1));
+
+    const inc = _.add(1);
+    const inc10 = _.add(10);
+
+    console.log(inc(10));
+    console.log(inc(4));
+    console.log(inc(6));
+    console.log(inc(12));
+
+    console.log(inc10(100));
+
+
+    const duplica = _.multiply(2);
+
+    console.log(duplica(3));
+
+
+    const duplicaArray = _.map(duplica);
+
+    console.log(duplicaArray([ 1, 2, 4, 5, 8, 9 ]));
+
+ 
+
+    /* 
+      Filtrar por números ímpares
+      Filtar por números pares
+      Filtrar por números maiores que
+      Filtrar por númeos menos que
+    */
+
+    
+
+    console.log(_.filter(_.isOdd)([1,2,3,4,5]));
+    console.log(_.filter(_.isEven)([1,2,3,4,5]));
+
+    console.log(
+      _.filter(_.gt(10))([5, 12, 10, 9, 49])
+    );
+
+    const filtraMenoresQue50 = _.filter(_.lte(50));
+
+    console.log(filtraMenoresQue50([10, 50, 30, 90, 100, 14]));
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exemplo carrinho total - JS Raiz</title>
+</head>
+<body>
+  <script type="module">
+    import * as _ from './tools/lib.js';
+
+    /* 
+      - Request para produtos - retornando todos eles
+      - Vamos extrair os preços
+      - Aplicar desconto de 20%
+      - Aplicar taxa de 5%
+      - Somar valor total
+    */
+
+    function toJson(data) {
+      return data.json();
+    }
+
+    const getProdutos = _.partial(fetch, 'http://localhost:3000/produtos');
+
+    /* produtos.map(function(produto) {
+      return produto.preco;
+    }) */
+
+    /* const extraiPreco = _.prop('preco');
+    const desconta20 = _.multiply(0.8);
+    const taxa5 = _.multiply(1.05); */
+
+    /* const valorFinalDoProduto = _.compose(
+      taxa5,
+      desconta20,
+      extraiPreco
+    ); */
+
+    const valorFinalDoProduto = _.pipe(
+      _.prop('preco'),
+      _.multiply(0.8),
+      _.multiply(1.05)
+    );
+
+    const resultadoFinal = _.pipeP(
+      getProdutos,
+      toJson,
+      _.map(valorFinalDoProduto),
+      _.sum
+    )
+
+    resultadoFinal()
+      .then(console.log)
+
+  </script>
+</body>
+</html>
